@@ -31,14 +31,22 @@ exports.countAthletesByCountry = (req, res) => {
     // se crea una query solo con los elementos a filtrar.
     const query = datastore.createQuery('Aggregate')
 
-    if(req.body.sex !== undefined)
-      query.filter('sex', '=', req.body.sex)
+    if(req.body.sex !== undefined )
+      query.filter('sex', '=', req.body.sex);
     if(req.body.year !== undefined)
-      query.filter('year', '=', req.body.year)
+      query.filter('year', '=', req.body.year);
 
     datastore.runQuery(query).then( results => {
-      console.log(results[0].length);
-      res.status(200).send({'result': results[0].length});
+      const countries = {};
+      const agg = results[0]
+
+      agg.forEach( r => {
+        if (countries[r.country] === undefined){
+          countries[r.country] = 0;
+        }
+        countries[r.country] = countries[r.country] + r.total;
+      })
+      res.status(200).send(countries);
     })
   }
 };
