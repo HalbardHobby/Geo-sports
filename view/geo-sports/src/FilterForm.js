@@ -10,29 +10,37 @@ class FilterForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.requestPlayers = this.requestPlayers.bind(this);
   }
 
   handleChange(event) {
     const value = event.target.value;
     const name = event.target.name;
+    this.setState({[name]: value})
+    this.requestPlayers();
   }
 
   componentDidMount() {
+    this.requestPlayers();
+  }
+
+  requestPlayers() {
     fetch('https://us-central1-geo-sports.cloudfunctions.net/countAthletesByCountry', {
       method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:3000',
-      },
-      body: JSON.stringify({
-        sex: this.state.sex,
-        year: this.state.year,
-      })
-    }).then(result => result.json)
-    .then(items => {
-      items.forEach(i=>console.log(i));
-    })
+    }).then(
+      fetch('https://us-central1-geo-sports.cloudfunctions.net/countAthletesByCountry',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+                  "sex": this.state.sex,
+                  "year": this.state.year
+                })
+       })
+     ).then( r => r.json())
+     .then( r => console.log(r));
   }
 
   render() {
