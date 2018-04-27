@@ -56,7 +56,8 @@ class AggregateEntityWrapper(object):
     def make_entity(self, content):
         """Con una tupla dada genera una entrada en datastore de los agregados."""
         entity = entity_pb2.Entity()
-        datastore_helper.add_key_path(entity.key, 'Aggregate')
+        key = content[0][0] + content[0][1] + str(content[0][2])
+        datastore_helper.add_key_path(entity.key, 'Aggregate', key)
 
         properties = {"country": content[0][0],
                       "sex": content[0][1],
