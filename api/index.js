@@ -31,16 +31,21 @@ exports.countAthletesByCountry = (req, res) => {
     // se crea una query solo con los elementos a filtrar.
     const query = datastore.createQuery('Aggregate')
 
+    // Verificar si hay campos adicionales y no son vacíos. En caso de no ser
+    // vacíos se aplican los filtros apropiados.
     if(req.body.sex !== undefined && req.body.sex !== '')
       query.filter('sex', '=', req.body.sex);
     if(req.body.year !== undefined && req.body.year !== '')
       query.filter('year', '=', req.body.year);
 
+    // Se corre la query y se procesa el resultado.
     datastore.runQuery(query).then( results => {
+      // Se crea un objeto vacío que sirve como buffer para los resultados.
       const countries = {};
       const agg = results[0]
 
       agg.forEach( r => {
+        // Si el campo es nulo se crea un contador en 0.
         if (countries[r.country] === undefined){
           countries[r.country] = 0;
         }
