@@ -6,10 +6,13 @@ const Datastore = require('@google-cloud/datastore');
 const datastore = Datastore();
 
 /**
- * Responds to any HTTP request that can provide a "message" field in the body.
+ * Provee una lista de la cantidad de atletas registrados por pais según
+ * los filtros parametros solicitados por el usuario.
  *
- * @param {!Object} req Cloud Function request context.
- * @param {!Object} res Cloud Function response context.
+ * @param {!Object} req Objeto Json de contexto cloud conteniendo el request
+ *                      del usuario.
+ * @param {!Object} res Objeto Json con .una lista de los paises y la cantidad
+ *                      de atletas registrados
  */
 exports.countAthletesByCountry = (req, res) => {
 
@@ -22,11 +25,20 @@ exports.countAthletesByCountry = (req, res) => {
     /**
      * Entrada de ejemplo:
      * {"sex": "male",
-     *  "bornBefore": 2012-04-23T18:25:43.511Z,
-     *  "bornAfter": 1990-04-23T18:25:43.511Z}
+     *  "year": 1980}
      */
-    sex = req.body.sex;
-    bornBefore = req.body.bornBefore;
-    bornAfter = req.body.bornAfter;
+
+    // se crea una query solo con los elementos a filtrar.
+    const query = datastore.createQuery('Aggregate')
+
+    if(req.body.sex !== undefined)
+      query.filter('sex', '=', req.body.sex)
+    if(req.body.year !== undefined)
+      query.filter('year', '=', req.body.year)
+
+    datastore.runQuery(query).then( results => {
+      console.log(results[0].length);
+      res.status(200).send({'result': results[0].length});
+    })
   }
 };
