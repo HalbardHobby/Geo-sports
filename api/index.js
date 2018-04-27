@@ -15,19 +15,18 @@ const datastore = Datastore();
  *                      de atletas registrados
  */
 exports.countAthletesByCountry = (req, res) => {
-
-  // Verificar tipo de contenido
-  if (req.get('content-type') !== 'application/json'){
-    // En caso de no ser una petición json, es rechazada.
-    res.status(400).send('JSON required.').end();
+  /**
+   * Entrada de ejemplo:
+   * {"sex": "male",
+   *  "year": 1980}
+   */
+  if(req.method === 'OPTIONS') {
+    // Manejo para cors de la función.
+    res.set('Access-Control-Allow-Origin', "*")
+    res.set('Access-Control-Allow-Methods', 'GET, POST')
+    res.status(200).send();
   }
   else {
-    /**
-     * Entrada de ejemplo:
-     * {"sex": "male",
-     *  "year": 1980}
-     */
-
     // se crea una query solo con los elementos a filtrar.
     const query = datastore.createQuery('Aggregate')
 
@@ -36,7 +35,7 @@ exports.countAthletesByCountry = (req, res) => {
     if(req.body.sex !== undefined && req.body.sex !== '')
       query.filter('sex', '=', req.body.sex);
     if(req.body.year !== undefined && req.body.year !== '')
-      query.filter('year', '=', req.body.year);
+      query.filter('year', '=', parseInt(req.body.year));
 
     // Se corre la query y se procesa el resultado.
     datastore.runQuery(query).then( results => {
@@ -51,6 +50,8 @@ exports.countAthletesByCountry = (req, res) => {
         }
         countries[r.country] = countries[r.country] + r.total;
       })
+      res.set('Access-Control-Allow-Origin', "*")
+      res.set('Access-Control-Allow-Methods', 'GET, POST')
       res.status(200).send(countries);
     })
   }
