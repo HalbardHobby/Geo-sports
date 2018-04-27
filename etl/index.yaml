@@ -1,0 +1,22 @@
+indexes:
+
+- kind: Athlete
+  properties:
+  - name: country
+    direction: desc
+  - name: sex
+  - name: date_of_birth
+    direction: desc
+
+- kind: Athlete
+  properties:
+  - name: country
+    direction: desc
+  - name: date_of_birth
+    direction: desc
+
+- kind: Athlete
+  properties:
+  - name: country
+    direction: desc
+  - name: sex
