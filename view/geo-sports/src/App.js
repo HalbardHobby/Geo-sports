@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import FilterForm from './FilterForm';
-import CloroMap from './CloroplethMap';
 import logo from './logo.svg';
 import './App.css';
 
@@ -13,7 +12,6 @@ class App extends Component {
           <h1 className="App-title">Geo Sports</h1>
         </header>
         <FilterForm/>
-        <CloroMap/>
       </div>
     );
   }
