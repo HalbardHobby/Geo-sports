@@ -54,7 +54,7 @@ servicios independientes para cada una de los componentes requeridos. A
 continuación se presenta un diagrama de la solución desplegada en Google Cloud
 Platform.
 
-![Referencia Arquitectural](images\Referencia Arquitectural.png)
+![Referencia Arquitectural](https://raw.githubusercontent.com/HalbardHobby/Geo-sports/master/images/Referencia%20Arquitectural.png)
 
 ### ETL y base de datos
 La primera capa de la solución es la ingesta de información (normalmente
@@ -62,7 +62,7 @@ referida como ETL) y el almacenamiento en base de datos. Para lograr esto se
 utilizó el servicio de Dataflow para crear el pipeline de ingesta de la
 información a partir de un bucket creado en Google Cloud Storage.
 
-![Pipeline de ingesta](images\Dataflow Pipeline.PNG)
+![Pipeline de ingesta](https://raw.githubusercontent.com/HalbardHobby/Geo-sports/master/images/Dataflow%20Pipeline.PNG)
 
 Pensando en el tipo de consultas que se equieren de la solución se dividió el
 pipeline en dos partes; una encargada de mapear los jugadores a entidades de
@@ -72,10 +72,10 @@ entidades hasta apróximadamente 3.600). A Continuación se presenta una imagen 
 las diferentes entidades generadas a partir del pipeline.
 
 #### Entidades de jugador
-![Entidades de jugador](images\Datastore Athlete.PNG)
+![Entidades de jugador](https://raw.githubusercontent.com/HalbardHobby/Geo-sports/master/images/Datastore%20Athlete.PNG)
 
 #### Entidades de agregados
-![Entidades de Agregado](images\Datastore Aggregate.PNG)
+![Entidades de Agregado](https://raw.githubusercontent.com/HalbardHobby/Geo-sports/master/images/Datastore%20Aggregate.PNG)
 
 ### API
 
@@ -100,7 +100,7 @@ create-react-app, reduciendo el tiempo de desarrollo debido a la configuración
 de todas las dependencias. Para la creación del mapa se recurrió a la libreria
 plotly que facilita la creación de visualizaciones de datos vía web.
 
-![Geo Sports](images\Geo Sports.PNG)
+![Geo Sports](https://raw.githubusercontent.com/HalbardHobby/Geo-sports/master/images/Geo%20Sports.PNG)
 
 En cuanto al despliegue de la vista se recurrió a una solución similar que el
 API haciendo miras a una aplicación _serverless_. Para lograr esto se utilizó el
