@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 class FilterForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       sex: '',
       year: '',
@@ -27,23 +27,20 @@ class FilterForm extends Component {
   requestPlayers() {
     fetch('https://us-central1-geo-sports.cloudfunctions.net/countAthletesByCountry', {
       method: 'POST',
-    }).then(
-      fetch('https://us-central1-geo-sports.cloudfunctions.net/countAthletesByCountry',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-                  "sex": this.state.sex,
-                  "year": this.state.year
-                })
-       })
-     ).then( r => r.json())
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+              "sex": this.state.sex,
+              "year": this.state.year
+            })
+    }).then( r => r.json())
      .then( r => console.log(r));
   }
 
   render() {
+    const years = [...Array(69).keys()].map( i => i + 1950 );
     return (
       <form>
         <label>
@@ -56,8 +53,10 @@ class FilterForm extends Component {
         </label>
         <label>
           Birth Year:
-          <input value={this.state.year} onChange={this.handleChange}
-              type="number" name="year" min="1950" max="2018"/>
+          <select value={this.state.year} onChange={this.handleChange} name="year">
+            <option value=''>All years</option>
+            {years.map( i => <option value={i}>{i}</option> )}
+          </select>
         </label>
       </form>
     );

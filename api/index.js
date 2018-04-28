@@ -22,8 +22,9 @@ exports.countAthletesByCountry = (req, res) => {
    */
   if(req.method === 'OPTIONS') {
     // Manejo para cors de la función.
-    res.set('Access-Control-Allow-Origin', "*")
-    res.set('Access-Control-Allow-Methods', 'GET, POST')
+    res.set('Access-Control-Allow-Origin', "*");
+    res.set('Access-Control-Allow-Headers', '*');
+    res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.status(200).send();
   }
   else {
@@ -50,8 +51,9 @@ exports.countAthletesByCountry = (req, res) => {
         }
         countries[r.country] = countries[r.country] + r.total;
       })
-      res.set('Access-Control-Allow-Origin', "*")
-      res.set('Access-Control-Allow-Methods', 'GET, POST')
+      res.set('Access-Control-Allow-Origin', "*");
+      res.set('Access-Control-Allow-Headers', '*');
+      res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
       res.status(200).send(countries);
     })
   }
