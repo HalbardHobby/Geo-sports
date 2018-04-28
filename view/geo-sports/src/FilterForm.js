@@ -37,9 +37,6 @@ class FilterForm extends Component {
   }
 
   render() {
-    console.log(this.state);
-    console.log(Object.keys(this.state.results));
-    console.log(Object.values(this.state.results));
     const years = [...Array(69).keys()].map( i => i + 1950 );
     return (
       <div>
